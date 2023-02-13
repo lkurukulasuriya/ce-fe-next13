@@ -92,7 +92,7 @@ export default function RootLayout({
           </Sider>
           <Layout className='site-layout' style={{ color: 'red' }}>
             <Header style={{ paddingLeft: 20, background: colorBgContainer }}>
-              Merchant Dashboard
+              <h2>Merchant Dashboard</h2>
             </Header>
             <Content style={{ margin: '0 16px', padding: '32px 0' }}>
               {children}
