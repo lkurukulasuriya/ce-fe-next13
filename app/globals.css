@@ -105,3 +105,10 @@ a {
     color-scheme: dark;
   }
 }
+
+.loading-spin {
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
