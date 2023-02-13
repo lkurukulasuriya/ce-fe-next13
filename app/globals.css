@@ -112,3 +112,7 @@ a {
   align-items: center;
   justify-content: center;
 }
+
+.order-table-wrapper {
+  margin-top: 20px;
+}

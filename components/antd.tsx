@@ -1,5 +1,5 @@
 'use client'
 
-import { Table, Space, Spin } from 'antd'
+import { Table, Select, Space, Spin } from 'antd'
 
-export { Table, Space, Spin }
+export { Table, Select, Space, Spin }

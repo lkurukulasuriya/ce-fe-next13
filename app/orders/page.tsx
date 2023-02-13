@@ -1,46 +1,81 @@
-import { Table } from '../../components/antd'
+'use client'
 
-async function getOrders() {
-  const res = await fetch(
-    `https://api-dev.channelengine.net/api/v2/orders?apikey=541b989ef78ccb1bad630ea5b85c6ebff9ca3322`,
-    { cache: 'no-store' }
-  )
+import { useState, useEffect } from 'react'
+import { Table, Select } from '../../components/antd'
+import { ORDER_STATUSES } from '../../constants'
+import type { SelectProps } from 'antd'
+import useOrder from '../../hooks/useOrder'
+
+// TODO: nextjs13 server components
+// Testing data fetching in server-side components
+async function getOrders(statuses: [], page: number) {
+  const res = await fetch('', { cache: 'no-store' })
   const data = await res.json()
-  console.log('data', data)
-  return data.Content
+  return data
 }
 
-async function OrderList() {
-  const dataSource = await getOrders()
-  const columns = [
-    {
-      title: 'Id',
-      dataIndex: 'Id',
-      key: 'Id',
-    },
-    {
-      title: 'ChannelName',
-      dataIndex: 'ChannelName',
-      key: 'ChannelName',
-    },
-    {
-      title: 'Email',
-      dataIndex: 'Email',
-      key: 'Email',
-    },
-    {
-      title: 'Phone',
-      dataIndex: 'Phone',
-      key: 'Phone',
-    },
-    {
-      title: 'Status',
-      dataIndex: 'Status',
-      key: 'Status',
-    },
-  ]
+const options: SelectProps['options'] = ORDER_STATUSES.map((status) => ({
+  label: status,
+  value: status,
+}))
 
-  return <Table dataSource={dataSource} columns={columns} />
+const columns = [
+  {
+    title: 'Id',
+    dataIndex: 'Id',
+    key: 'Id',
+  },
+  {
+    title: 'ChannelName',
+    dataIndex: 'ChannelName',
+    key: 'ChannelName',
+  },
+  {
+    title: 'Email',
+    dataIndex: 'Email',
+    key: 'Email',
+  },
+  {
+    title: 'Phone',
+    dataIndex: 'Phone',
+    key: 'Phone',
+  },
+  {
+    title: 'Status',
+    dataIndex: 'Status',
+    key: 'Status',
+  },
+]
+
+function OrderList() {
+  const [currentPage, setCurrentPage] = useState(1)
+  const [statuses, setStatuses] = useState<string[]>([])
+  const { orders, isError, isLoading } = useOrder(1, statuses)
+
+  useEffect(() => {
+    console.log('running useeffect')
+  }, [currentPage])
+
+  return (
+    <>
+      <Select
+        mode='multiple'
+        allowClear
+        style={{ width: '100%' }}
+        placeholder='Select Order status to filter result'
+        onChange={(selected) => setStatuses([...selected])}
+        options={options}
+      />
+      <div className='order-table-wrapper'>
+        <Table
+          loading={isLoading}
+          dataSource={orders}
+          columns={columns}
+          scroll={{ y: '55vh' }}
+        />
+      </div>
+    </>
+  )
 }
 
 export default OrderList
