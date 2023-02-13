@@ -116,3 +116,9 @@ a {
 .order-table-wrapper {
   margin-top: 20px;
 }
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: right;
+  margin: 15px;
+}

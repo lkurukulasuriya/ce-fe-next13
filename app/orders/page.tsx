@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { Table, Select } from '../../components/antd'
 import { ORDER_STATUSES } from '../../constants'
+import CEPagination from '../../components/CEPagination'
 import type { SelectProps } from 'antd'
 import useOrder from '../../hooks/useOrder'
 
@@ -49,12 +50,23 @@ const columns = [
 
 function OrderList() {
   const [currentPage, setCurrentPage] = useState(1)
+  const [total, setTotal] = useState(0)
+  const [pageSize, setPageSize] = useState(0)
   const [statuses, setStatuses] = useState<string[]>([])
-  const { orders, isError, isLoading } = useOrder(1, statuses)
+  const { orders, pagination, isError, isLoading } = useOrder(1, statuses)
 
   useEffect(() => {
     console.log('running useeffect')
   }, [currentPage])
+
+  useEffect(() => {
+    if (pagination) {
+      setTotal(pagination?.total)
+      setPageSize(pagination?.pageSize)
+    }
+  }, [pagination])
+
+  if (isError) return <div>Error occured in useOrder: {isError}</div>
 
   return (
     <>
@@ -72,7 +84,17 @@ function OrderList() {
           dataSource={orders}
           columns={columns}
           scroll={{ y: '55vh' }}
+          pagination={false}
         />
+        <div className='pagination-wrapper'>
+          <CEPagination
+            current={currentPage}
+            total={total}
+            pageSize={pageSize}
+            onChange={(current) => setCurrentPage(current)}
+            showSizeChanger={false}
+          />
+        </div>
       </div>
     </>
   )
