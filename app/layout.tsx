@@ -18,9 +18,10 @@ const { Header, Content, Footer, Sider } = Layout
 
 type MenuItem = Required<MenuProps>['items'][number]
 
+const activeMenus = [1, 2, 4]
 function getItem(
   label: React.ReactNode,
-  key: React.Key,
+  key: string,
   icon?: React.ReactNode,
   children?: MenuItem[]
 ): MenuItem {
@@ -29,6 +30,7 @@ function getItem(
     icon,
     children,
     label,
+    disabled: !activeMenus.includes(parseInt(key)),
   } as MenuItem
 }
 
@@ -90,8 +92,14 @@ export default function RootLayout({
               items={items}
             />
           </Sider>
-          <Layout className='site-layout' style={{ color: 'red' }}>
-            <Header style={{ paddingLeft: 20, background: colorBgContainer }}>
+          <Layout className='site-layout'>
+            <Header
+              style={{
+                paddingLeft: 20,
+                background: colorBgContainer,
+                color: 'rgba(0, 0, 0, 0.88)',
+              }}
+            >
               <h2>Merchant Dashboard</h2>
             </Header>
             <Content style={{ margin: '0 16px', padding: '32px 0' }}>

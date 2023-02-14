@@ -28,7 +28,10 @@ function OrderList() {
   const [statuses, setStatuses] = useState<string[]>([])
   const [selectedOrder, setSelectedOrder] = useState({})
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { orders, pagination, isError, isLoading } = useOrder(1, statuses)
+  const { orders, pagination, isError, isLoading } = useOrder(
+    currentPage,
+    statuses
+  )
 
   useEffect(() => {
     console.log('running useeffect')
