@@ -1,5 +1,25 @@
 'use client'
 
-import { Table, Select, Space, Spin, Pagination } from 'antd'
+import {
+  Table,
+  Select,
+  Space,
+  Spin,
+  Pagination,
+  Dropdown,
+  Modal,
+  Descriptions,
+  Button,
+} from 'antd'
 
-export { Table, Select, Space, Spin, Pagination }
+export {
+  Table,
+  Select,
+  Space,
+  Spin,
+  Pagination,
+  Dropdown,
+  Modal,
+  Descriptions,
+  Button,
+}
