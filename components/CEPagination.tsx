@@ -7,22 +7,9 @@ interface CEPaginationProps {
   onChange: (current: number) => void
   showSizeChanger: boolean
 }
-function CEPagination({
-  current,
-  total,
-  pageSize,
-  onChange,
-  showSizeChanger,
-}: CEPaginationProps) {
-  return (
-    <Pagination
-      current={current}
-      total={total}
-      pageSize={pageSize}
-      onChange={onChange}
-      showSizeChanger={showSizeChanger}
-    />
-  )
+
+function CEPagination(props: CEPaginationProps) {
+  return <>{props.total > 0 && <Pagination {...props} />}</>
 }
 
 export default CEPagination
