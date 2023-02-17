@@ -10,10 +10,10 @@ const paginationProps = {
   showSizeChanger: false,
 }
 describe(CEPagination, () => {
-  it('should render CEPagination component', () => {
+  it('should render CEPagination component with page 5', () => {
     render(<CEPagination {...paginationProps} />)
 
-    const prevElement = screen.getByText(/1/i)
+    const prevElement = screen.getByText(/5/i)
     expect(prevElement).toBeInTheDocument()
   })
 })
